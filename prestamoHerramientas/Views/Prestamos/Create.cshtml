@@ -5,53 +5,64 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Create</h1>
+<center><h1>Nuevo Prestamo</h1></center>
 
-<h4>Prestamo</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="PreatadoA" class="control-label"></label>
-                <input asp-for="PreatadoA" class="form-control" />
-                <span asp-validation-for="PreatadoA" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="IdMarca" class="control-label"></label>
-                <select asp-for="IdMarca" class ="form-control" asp-items="ViewBag.IdMarca"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="IdModelo" class="control-label"></label>
-                <select asp-for="IdModelo" class ="form-control" asp-items="ViewBag.IdModelo"></select>
-            </div>
-            <div class="form-group">
-                <label asp-for="FechaIncio" class="control-label"></label>
-                <input asp-for="FechaIncio" class="form-control" />
-                <span asp-validation-for="FechaIncio" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="FechaFin" class="control-label"></label>
-                <input asp-for="FechaFin" class="form-control" />
-                <span asp-validation-for="FechaFin" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Estado" class="control-label"></label>
-                <input asp-for="Estado" class="form-control" />
-                <span asp-validation-for="Estado" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
+<br />
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+<form asp-action="Create">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="row">
+        <div class="col ">
+            <label>Prestado A:</label>
+            <input asp-for="PreatadoA" placeholder="Ingrese nombre de la persona" class="form-control" />
+            <span asp-validation-for="PreatadoA" class="text-danger"></span>
+        </div>
+        <div class="col">
+            <label >Marca</label>
+            <select asp-for="IdMarca" class="form-control" asp-items="ViewBag.IdMarca"></select>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col ">
+        <label>Modelo</label>
+        <select asp-for="IdModelo" class="form-control" asp-items="ViewBag.IdModelo"></select>
+    </div>
+    <div class="col">
+        <label >Fecha Inicio</label>
+        <input asp-for="FechaIncio" class="form-control" type="date" />
+        <span asp-validation-for="FechaIncio" class="text-danger"></span>
+    </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col ">
+        <label>Fecha Final</label>
+            <input asp-for="FechaFin" class="form-control" type="date" />
+        <span asp-validation-for="FechaFin" class="text-danger"></span>
+    </div>
+    <div class="col">
+        <label>Estado</label>
+        <input asp-for="Estado" class="form-control" />
+        <span asp-validation-for="Estado" class="text-danger"></span>
+    </div>
+    </div>
+    <br />
+
+    <div class="row">
+        <div class="col-sm-1">
+        <input type="submit" value="Create" class="btn btn-sm btn-primary" />
+    </div>
+        <div class="col-sm-1">
+            <a asp-action="Index" class="btn btn-sm btn-secondary">Regresar</a>
+        </div>
+        </div>
+</form>
+   
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

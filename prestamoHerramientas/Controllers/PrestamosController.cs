@@ -19,9 +19,20 @@ namespace prestamoHerramientas.Controllers
         }
 
         // GET: Prestamos
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string buscar)
         {
-            var prestamosContext = _context.Prestamos.Include(p => p.IdMarcaNavigation).Include(p => p.IdModeloNavigation);
+            var prestamosContext = from Prestamo in _context.Prestamos select Prestamo;
+
+            prestamosContext = _context.Prestamos.Include(p => p.IdMarcaNavigation).Include(p => p.IdModeloNavigation);
+
+            if (!String.IsNullOrEmpty(buscar))
+            {
+                var marca = _context.Marcas.Where(m => m.NombreMarca.Equals(buscar)).FirstOrDefault();
+                //var modelo = _context.Modelos.Where(m => m.Serie.Equals(buscar)).FirstOrDefault();
+                prestamosContext = prestamosContext.Where(x => x.IdMarca==marca.IdMarca);
+                //prestamosContext = prestamosContext.Where(x => x.IdModelo == modelo.IdModelo);
+            }
+            
             return View(await prestamosContext.ToListAsync());
         }
 
@@ -48,8 +59,8 @@ namespace prestamoHerramientas.Controllers
         // GET: Prestamos/Create
         public IActionResult Create()
         {
-            ViewData["IdMarca"] = new SelectList(_context.Marcas, "IdMarca", "IdMarca");
-            ViewData["IdModelo"] = new SelectList(_context.Modelos, "IdModelo", "IdModelo");
+            ViewData["IdMarca"] = new SelectList(_context.Marcas, "IdMarca", "NombreMarca");
+            ViewData["IdEquipo"] = new SelectList(_context.Equipos, "IdEquipo", "NombreEquipo");
             return View();
         }
 
@@ -66,8 +77,8 @@ namespace prestamoHerramientas.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdMarca"] = new SelectList(_context.Marcas, "IdMarca", "IdMarca", prestamo.IdMarca);
-            ViewData["IdModelo"] = new SelectList(_context.Modelos, "IdModelo", "IdModelo", prestamo.IdModelo);
+            ViewData["IdMarca"] = new SelectList(_context.Marcas, "IdMarca", "NombreMarca", prestamo.IdMarca);
+            ViewData["IdEquipo"] = new SelectList(_context.Modelos, "IdEquipo", "NombreEquipo", prestamo.IdModelo);
             return View(prestamo);
         }
 
@@ -85,7 +96,7 @@ namespace prestamoHerramientas.Controllers
                 return NotFound();
             }
             ViewData["IdMarca"] = new SelectList(_context.Marcas, "IdMarca", "IdMarca", prestamo.IdMarca);
-            ViewData["IdModelo"] = new SelectList(_context.Modelos, "IdModelo", "IdModelo", prestamo.IdModelo);
+            ViewData["IdEquipo"] = new SelectList(_context.Modelos, "IdEquipo", "NombreEquipo", prestamo.IdModelo);
             return View(prestamo);
         }
 

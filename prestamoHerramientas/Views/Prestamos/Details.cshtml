@@ -5,51 +5,50 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Details</h1>
+<h1>Detalles de el Prestamo</h1>
 
 <div>
-    <h4>Prestamo</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PreatadoA)
+            Prestado A:
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.PreatadoA)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FechaIncio)
+            Fecha Prestamo
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.FechaIncio)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FechaFin)
+           Fecha devolución
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.FechaFin)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Estado)
+            Estado
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Estado)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IdMarcaNavigation)
+            Marca
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IdMarcaNavigation.IdMarca)
+            @Html.DisplayFor(model => model.IdMarcaNavigation.NombreMarca)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IdModeloNavigation)
+            Modelo
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IdModeloNavigation.IdModelo)
+            @Html.DisplayFor(model => model.IdModeloNavigation.Serie)
         </dd>
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.IdPrestamo">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model?.IdPrestamo" class="btn btn-sm btn-success">Editar</a> |
+    <a asp-action="Index" class="btn btn-sm btn-secondary">Regresar</a>
 </div>

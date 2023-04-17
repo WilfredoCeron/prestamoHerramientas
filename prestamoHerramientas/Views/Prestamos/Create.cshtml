@@ -1,0 +1,68 @@
+﻿@model prestamoHerramientas.Models.Prestamo
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<center><h1>Nuevo Prestamo</h1></center>
+
+<hr />
+<br />
+
+<form asp-action="Create">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="row">
+        <div class="col ">
+            <label>Prestado A:</label>
+            <input asp-for="PreatadoA" placeholder="Ingrese nombre de la persona" class="form-control" />
+            <span asp-validation-for="PreatadoA" class="text-danger"></span>
+        </div>
+        <div class="col">
+            <label >Marca</label>
+            <select asp-for="IdMarca" class="form-control" asp-items="ViewBag.IdMarca"></select>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col ">
+        <label>Modelo</label>
+        <select asp-for="IdModelo" class="form-control" asp-items="ViewBag.IdModelo"></select>
+    </div>
+    <div class="col">
+        <label >Fecha Inicio</label>
+        <input asp-for="FechaIncio" class="form-control" type="date" />
+        <span asp-validation-for="FechaIncio" class="text-danger"></span>
+    </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col ">
+        <label>Fecha Final</label>
+            <input asp-for="FechaFin" class="form-control" type="date" />
+        <span asp-validation-for="FechaFin" class="text-danger"></span>
+    </div>
+    <div class="col">
+        <label>Estado</label>
+        <input asp-for="Estado" class="form-control" />
+        <span asp-validation-for="Estado" class="text-danger"></span>
+    </div>
+    </div>
+    <br />
+
+    <div class="row">
+        <div class="col-sm-1">
+        <input type="submit" value="Crear" class="btn btn-sm btn-primary" />
+    </div>
+        <div class="col-sm-1">
+            <a asp-action="Index" class="btn btn-sm btn-secondary">Regresar</a>
+        </div>
+        </div>
+</form>
+   
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -1,0 +1,74 @@
+﻿@model IEnumerable<prestamoHerramientas.Models.Marca>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<center><h1>Lista de Marcas</h1></center>
+<hr />
+<br />
+<div class="row justify-content-between">
+    <div class="col-4">
+        <p>
+            <a asp-action="create" class="btn btn-sm btn-success">Agregar Nueva Marca</a>
+        </p>
+    </div>
+    <div class="col-4">
+        <p>
+            <a asp-action="crearExcel" class="btn btn-sm btn-success">Descargar Excel</a>
+        </p>
+    </div>
+    <div class="col-4">
+        <form asp-controller="Marcas" asp-action="Index">
+            <p>
+                Buscar: <input type="text" name="buscar" placeholder="Busqueda por Marca" class="form-text" />
+                <input type="submit" value="Buscar" class="btn btn-sm btn-dark" />
+            </p>
+        </form>
+    </div>
+</div>
+<br />
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>
+                Marca
+            </th>
+            <th>
+                Descripción
+            </th>
+            <th>
+                Exactitud
+            </th>
+            <th>
+                Tipo de Herramienta
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NombreMarca)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descripcion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Exactitud)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdTipoHerramientaNavigation.TipoHerramienta1)
+            </td>
+            <td>
+                    <a asp-action="Edit" asp-route-id="@item.IdMarca" class="btn btn-sm btn-info">Editar</a> |
+                    <a asp-action="Details" asp-route-id="@item.IdMarca" class="btn btn-sm btn-primary">Detalle</a> |
+                    <a asp-action="Delete" asp-route-id="@item.IdMarca" class=" btn btn-sm btn-danger">Eliminar</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

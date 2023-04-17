@@ -1,0 +1,68 @@
+﻿@model prestamoHerramientas.Models.Prestamo
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Editar Prestamo</h1>
+
+<hr />
+<form asp-action="Edit">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="IdPrestamo" />
+    <div class="row">
+        <div class="col">
+            Prestado A:
+            <input asp-for="PreatadoA" class="form-control" />
+            <span asp-validation-for="PreatadoA" class="text-danger"></span>
+        </div>
+        <div class="col">
+            Lista de Marca
+            <select asp-for="IdMarca" class="form-control" asp-items="ViewBag.IdMarca"></select>
+            <span asp-validation-for="IdMarca" class="text-danger"></span>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col ">
+            Lista de Modelos
+            <select asp-for="IdModelo" class="form-control" asp-items="ViewBag.IdModelo"></select>
+            <span asp-validation-for="IdModelo" class="text-danger"></span>
+        </div>
+        <div class="col">
+            Fecha de Prestamo
+            <input asp-for="FechaIncio" class="form-control" type="date"/>
+            <span asp-validation-for="FechaIncio" class="text-danger"></span>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col ">
+            Fecha Entrega
+            <input asp-for="FechaFin" class="form-control" type="date"/>
+            <span asp-validation-for="FechaFin" class="text-danger"></span>
+        </div>
+        <div class="col">
+            Estado
+            <input asp-for="Estado" class="form-control" />
+            <span asp-validation-for="Estado" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-1">
+            <input type="submit" value="Guardar" class="btn btn-sm btn-primary" />
+        </div>
+        <div class="col-sm-1">
+            <a asp-action="Index" class="btn btn-sm btn-secondary">Regresar</a>
+        </div>
+    </div>
+</form>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

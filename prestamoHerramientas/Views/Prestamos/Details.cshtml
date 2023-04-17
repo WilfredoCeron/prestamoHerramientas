@@ -1,0 +1,54 @@
+﻿@model prestamoHerramientas.Models.Prestamo
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Detalles de el Prestamo</h1>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            Prestado A:
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.PreatadoA)
+        </dd>
+        <dt class = "col-sm-2">
+            Fecha Prestamo
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.FechaIncio)
+        </dd>
+        <dt class = "col-sm-2">
+           Fecha devolución
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.FechaFin)
+        </dd>
+        <dt class = "col-sm-2">
+            Estado
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Estado)
+        </dd>
+        <dt class = "col-sm-2">
+            Marca
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.IdMarcaNavigation.NombreMarca)
+        </dd>
+        <dt class = "col-sm-2">
+            Modelo
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.IdModeloNavigation.Serie)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.IdPrestamo" class="btn btn-sm btn-success">Editar</a> |
+    <a asp-action="Index" class="btn btn-sm btn-secondary">Regresar</a>
+</div>

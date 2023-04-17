@@ -5,12 +5,27 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Lista de Marcas</h1>
+<center><h1>Lista de Marcas</h1></center>
+<hr />
+<br />
+<div class="row justify-content-between">
+    <div class="col-4">
+        <p>
+            <a asp-action="create" class="btn btn-sm btn-success">Agregar Nueva Marca</a>
+        </p>
+    </div>
+    <div class="col-4">
+        <form asp-controller="Marcas" asp-action="Index">
+            <p>
+                Buscar: <input type="text" name="buscar" placeholder="Busqueda por Marca" class="form-text" />
+                <input type="submit" value="Buscar" class="btn btn-sm btn-dark" />
+            </p>
+        </form>
+    </div>
+</div>
+<br />
 
-<p>
-    <a asp-action="create" class="btn btn-success">Agregar Nueva Marca</a>
-</p>
-<table class="table">
+<table class="table table-hover">
     <thead>
         <tr>
             <th>
@@ -44,9 +59,9 @@
                 @Html.DisplayFor(modelItem => item.IdTipoHerramientaNavigation.TipoHerramienta1)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.IdMarca" class="btn btn-info">Editar</a> |
-                <a asp-action="Details" asp-route-id="@item.IdMarca" class="btn btn-primary">Detalle</a> |
-                <a asp-action="Delete" asp-route-id="@item.IdMarca" class=" btn btn-danger">Eliminar</a>
+                    <a asp-action="Edit" asp-route-id="@item.IdMarca" class="btn btn-sm btn-info">Editar</a> |
+                    <a asp-action="Details" asp-route-id="@item.IdMarca" class="btn btn-sm btn-primary">Detalle</a> |
+                    <a asp-action="Delete" asp-route-id="@item.IdMarca" class=" btn btn-sm btn-danger">Eliminar</a>
             </td>
         </tr>
 }

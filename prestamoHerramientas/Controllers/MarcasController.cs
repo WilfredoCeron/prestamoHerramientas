@@ -19,10 +19,15 @@ namespace prestamoHerramientas.Controllers
         }
 
         // GET: Marcas
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string buscar)
         {
-            //ViewBag.herramientas = _context.TipoHerramientas.Include(x => x.nombreTipoHerramienta).ToList();
-            var prestamosContext = _context.Marcas.Include(m => m.IdTipoHerramientaNavigation);
+            var prestamosContext = from Marca in _context.Marcas select Marca;
+            if (!String.IsNullOrEmpty(buscar))
+            {
+                 prestamosContext = prestamosContext.Where(x => x.NombreMarca!.Contains(buscar));   
+            }
+
+           //prestamosContext = _context.Marcas.Include(m => m.IdTipoHerramientaNavigation);
             return View(await prestamosContext.ToListAsync());
         }
 

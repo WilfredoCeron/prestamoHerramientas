@@ -5,10 +5,9 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Detalle</h1>
+<h1>Detalle de la Marca</h1>
 
 <div>
-    <h4>Marca</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -38,6 +37,6 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.IdMarca" class="btn btn-success">Editar</a> |
-    <a asp-action="Index" class="btn btn-secondary">Regresar</a>
+    <a asp-action="Edit" asp-route-id="@Model?.IdMarca" class="btn btn-sm btn-success">Editar</a> |
+    <a asp-action="Index" class="btn btn-sm btn-secondary">Regresar</a>
 </div>

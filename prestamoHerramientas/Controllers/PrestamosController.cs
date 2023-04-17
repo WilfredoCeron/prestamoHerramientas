@@ -27,10 +27,18 @@ namespace prestamoHerramientas.Controllers
 
             if (!String.IsNullOrEmpty(buscar))
             {
+                
                 var marca = _context.Marcas.Where(m => m.NombreMarca.Equals(buscar)).FirstOrDefault();
-                //var modelo = _context.Modelos.Where(m => m.Serie.Equals(buscar)).FirstOrDefault();
                 prestamosContext = prestamosContext.Where(x => x.IdMarca==marca.IdMarca);
-                //prestamosContext = prestamosContext.Where(x => x.IdModelo == modelo.IdModelo);
+                if( marca== null)
+                {
+                    var modelo = _context.Modelos.Where(m => m.Serie.Equals(buscar)).FirstOrDefault();
+                    prestamosContext = prestamosContext.Where(x => x.IdModelo == modelo.IdModelo);
+                    if(modelo == null)
+                    {
+                        prestamosContext = _context.Prestamos.Include(p => p.IdMarcaNavigation).Include(p => p.IdModeloNavigation);
+                    }
+                }  
             }
             
             return View(await prestamosContext.ToListAsync());

@@ -22,12 +22,14 @@ namespace prestamoHerramientas.Controllers
         public async Task<IActionResult> Index(string buscar)
         {
             var prestamosContext = from Marca in _context.Marcas select Marca;
+
+            prestamosContext = _context.Marcas.Include(m => m.IdTipoHerramientaNavigation);
+
             if (!String.IsNullOrEmpty(buscar))
             {
-                 prestamosContext = prestamosContext.Where(x => x.NombreMarca!.Contains(buscar));   
+                prestamosContext = prestamosContext.Where(x => x.NombreMarca!.Contains(buscar));
             }
 
-           //prestamosContext = _context.Marcas.Include(m => m.IdTipoHerramientaNavigation);
             return View(await prestamosContext.ToListAsync());
         }
 
@@ -160,14 +162,14 @@ namespace prestamoHerramientas.Controllers
             {
                 _context.Marcas.Remove(marca);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool MarcaExists(int id)
         {
-          return (_context.Marcas?.Any(e => e.IdMarca == id)).GetValueOrDefault();
+            return (_context.Marcas?.Any(e => e.IdMarca == id)).GetValueOrDefault();
         }
     }
 }

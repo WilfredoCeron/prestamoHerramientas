@@ -5,28 +5,40 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+<center><h1>Lista de Equipos</h1></center>
+<hr />
+<br />
+<div class="row justify-content-between">
+    <div class="col-4">
+        <p>
+            <a asp-action="create" class="btn btn-sm btn-success">Agregar Nuevo Equipo</a>
+        </p>
+    </div>
+    <div class="col-4">
+        <form asp-controller="Equipos" asp-action="Index">
+            <p>
+                Buscar: <input type="text" name="buscar" placeholder="Busqueda por Equipo" class="form-text" />
+                <input type="submit" value="Buscar" class="btn btn-sm btn-dark" />
+            </p>
+        </form>
+    </div>
+</div>
+<br />
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.NombreEquipo)
+                Equipo
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.NumeroSerie)
+                Numero de Serie
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Descripcion)
+                Descripción
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Estado)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IdMarcaNavigation)
+                Marca
             </th>
             <th></th>
         </tr>
@@ -44,15 +56,13 @@
                 @Html.DisplayFor(modelItem => item.Descripcion)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Estado)
+            <td>
+                @Html.DisplayFor(modelItem => item.IdMarcaNavigation.NombreMarca)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.IdMarcaNavigation.IdMarca)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.IdEquipo">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.IdEquipo">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.IdEquipo">Delete</a>
+                    <a asp-action="Edit" asp-route-id="@item.IdEquipo" class="btn btn-sm btn-info">Editar</a> |
+                    <a asp-action="Details" asp-route-id="@item.IdEquipo" class="btn btn-sm btn-primary">Detalle</a> |
+                    <a asp-action="Delete" asp-route-id="@item.IdEquipo" class="btn btn-sm btn-danger">Eliminar</a>
             </td>
         </tr>
 }

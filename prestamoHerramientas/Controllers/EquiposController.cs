@@ -19,9 +19,16 @@ namespace prestamoHerramientas.Controllers
         }
 
         // GET: Equipos
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string buscar)
         {
-            var prestamosContext = _context.Equipos.Include(e => e.IdMarcaNavigation);
+            var prestamosContext = from Equipo in _context.Equipos select Equipo;
+
+            prestamosContext = _context.Equipos.Include(e => e.IdMarcaNavigation);
+
+            if (!String.IsNullOrEmpty(buscar))
+            {
+                prestamosContext = prestamosContext.Where(x => x.NombreEquipo!.Contains(buscar));
+            }
             return View(await prestamosContext.ToListAsync());
         }
 

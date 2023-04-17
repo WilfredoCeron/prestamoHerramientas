@@ -5,51 +5,52 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Edit</h1>
+<h1>Editar Equipo</h1>
 
-<h4>Equipo</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="IdEquipo" />
-            <div class="form-group">
-                <label asp-for="NombreEquipo" class="control-label"></label>
-                <input asp-for="NombreEquipo" class="form-control" />
-                <span asp-validation-for="NombreEquipo" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="IdMarca" class="control-label"></label>
-                <select asp-for="IdMarca" class="form-control" asp-items="ViewBag.IdMarca"></select>
-                <span asp-validation-for="IdMarca" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="NumeroSerie" class="control-label"></label>
-                <input asp-for="NumeroSerie" class="form-control" />
-                <span asp-validation-for="NumeroSerie" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Descripcion" class="control-label"></label>
-                <input asp-for="Descripcion" class="form-control" />
-                <span asp-validation-for="Descripcion" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Estado" class="control-label"></label>
-                <input asp-for="Estado" class="form-control" />
-                <span asp-validation-for="Estado" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+<form asp-action="Edit">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="IdEquipo" />
+    <div class="row">
+        <div class="col ">
+            <label >Equipo</label>
+            <input asp-for="NombreEquipo" class="form-control"/>
+            <span asp-validation-for="NombreEquipo" class="text-danger"></span>
+        </div>
+        <div class="col">
+            <label>Lista de Marcas</label>
+            <select asp-for="IdMarca" class="form-control" asp-items="ViewBag.IdMarca"></select>
+            <span asp-validation-for="IdMarca" class="text-danger"></span>
+        </div>
     </div>
-</div>
+    <br />
+    <div class="row">
+        <div class="col ">
+            <label>Numero de Serie</label>
+            <input asp-for="NumeroSerie" class="form-control" />
+            <span asp-validation-for="NumeroSerie" class="text-danger"></span>
+        </div>
+        <div class="col">
+            <label>Descripción</label>
+            <input asp-for="Descripcion" class="form-control" />
+            <span asp-validation-for="Descripcion" class="text-danger"></span>
+        </div>
+    </div>
+    <br />
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+    <div class="row">
+        <div class="col-sm-1">
+            <input type="submit" value="Guardar" class="btn btn-sm btn-primary" />
+        </div>
+        <div class="col-sm-1">
+            <a asp-action="Index" class="btn btn-sm btn-secondary">Regresar</a>
+        </div>
+    </div>
+</form>
+
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

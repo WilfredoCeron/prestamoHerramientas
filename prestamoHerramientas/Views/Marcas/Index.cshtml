@@ -5,25 +5,25 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+<h1>Lista de Marcas</h1>
 
 <p>
-    <a asp-action="Create" class="btn-primary btn-success">Create New</a>
+    <a asp-action="create" class="btn btn-success">Agregar Nueva Marca</a>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.NombreMarca)
+                Marca
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Descripcion)
+                Descripción
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Exactitud)
+                Exactitud
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.IdTipoHerramientaNavigation)
+                Tipo de Herramienta
             </th>
             <th></th>
         </tr>
@@ -41,12 +41,12 @@
                 @Html.DisplayFor(modelItem => item.Exactitud)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.IdTipoHerramientaNavigation.IdTipoHerramienta)
+                @Html.DisplayFor(modelItem => item.IdTipoHerramientaNavigation.TipoHerramienta1)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.IdMarca">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.IdMarca">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.IdMarca">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.IdMarca" class="btn btn-info">Editar</a> |
+                <a asp-action="Details" asp-route-id="@item.IdMarca" class="btn btn-primary">Detalle</a> |
+                <a asp-action="Delete" asp-route-id="@item.IdMarca" class=" btn btn-danger">Eliminar</a>
             </td>
         </tr>
 }

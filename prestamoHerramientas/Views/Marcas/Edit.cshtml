@@ -5,9 +5,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Edit</h1>
+<h1>Editar Marca</h1>
 
-<h4>Marca</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -15,34 +14,38 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="IdMarca" />
             <div class="form-group">
-                <label asp-for="NombreMarca" class="control-label"></label>
-                <input asp-for="NombreMarca" class="form-control" />
+                <label class="control-label">Marca</label>
+                <input asp-for="NombreMarca" class="form-control" disabled/>
                 <span asp-validation-for="NombreMarca" class="text-danger"></span>
             </div>
+            <br />
             <div class="form-group">
-                <label asp-for="Descripcion" class="control-label"></label>
+                <label class="control-label">Descripción</label>
                 <input asp-for="Descripcion" class="form-control" />
                 <span asp-validation-for="Descripcion" class="text-danger"></span>
             </div>
+            <br />
             <div class="form-group">
-                <label asp-for="IdTipoHerramienta" class="control-label"></label>
+                <label class="control-label">Tipo de Herramienta</label>
                 <select asp-for="IdTipoHerramienta" class="form-control" asp-items="ViewBag.IdTipoHerramienta"></select>
                 <span asp-validation-for="IdTipoHerramienta" class="text-danger"></span>
             </div>
+            <br />
             <div class="form-group">
-                <label asp-for="Exactitud" class="control-label"></label>
+                <label class="control-label">Exactitud</label>
                 <input asp-for="Exactitud" class="form-control" />
                 <span asp-validation-for="Exactitud" class="text-danger"></span>
             </div>
+            <br />
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Guardar" class="btn btn-success" />
             </div>
         </form>
     </div>
 </div>
-
+<br />
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index" class="btn btn-secondary">Regresar</a>
 </div>
 
 @section Scripts {

@@ -21,6 +21,7 @@ namespace prestamoHerramientas.Controllers
         // GET: Marcas
         public async Task<IActionResult> Index()
         {
+            //ViewBag.herramientas = _context.TipoHerramientas.Include(x => x.nombreTipoHerramienta).ToList();
             var prestamosContext = _context.Marcas.Include(m => m.IdTipoHerramientaNavigation);
             return View(await prestamosContext.ToListAsync());
         }
@@ -47,7 +48,7 @@ namespace prestamoHerramientas.Controllers
         // GET: Marcas/Create
         public IActionResult Create()
         {
-            ViewData["IdTipoHerramienta"] = new SelectList(_context.TipoHerramientas, "IdTipoHerramienta", "IdTipoHerramienta");
+            ViewData["IdTipoHerramienta"] = new SelectList(_context.TipoHerramientas, "IdTipoHerramienta", "TipoHerramienta1");
             return View();
         }
 
@@ -64,7 +65,7 @@ namespace prestamoHerramientas.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdTipoHerramienta"] = new SelectList(_context.TipoHerramientas, "IdTipoHerramienta", "IdTipoHerramienta", marca.IdTipoHerramienta);
+            ViewData["IdTipoHerramienta"] = new SelectList(_context.TipoHerramientas, "IdTipoHerramienta", "TipoHerramienta1", marca.IdTipoHerramienta);
             return View(marca);
         }
 
@@ -81,7 +82,7 @@ namespace prestamoHerramientas.Controllers
             {
                 return NotFound();
             }
-            ViewData["IdTipoHerramienta"] = new SelectList(_context.TipoHerramientas, "IdTipoHerramienta", "IdTipoHerramienta", marca.IdTipoHerramienta);
+            ViewData["IdTipoHerramienta"] = new SelectList(_context.TipoHerramientas, "IdTipoHerramienta", "TipoHerramienta1", marca.IdTipoHerramienta);
             return View(marca);
         }
 
@@ -117,7 +118,7 @@ namespace prestamoHerramientas.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdTipoHerramienta"] = new SelectList(_context.TipoHerramientas, "IdTipoHerramienta", "IdTipoHerramienta", marca.IdTipoHerramienta);
+            ViewData["IdTipoHerramienta"] = new SelectList(_context.TipoHerramientas, "IdTipoHerramienta", "TipoHerramienta1", marca.IdTipoHerramienta);
             return View(marca);
         }
 

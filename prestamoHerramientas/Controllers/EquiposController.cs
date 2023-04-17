@@ -47,7 +47,7 @@ namespace prestamoHerramientas.Controllers
         // GET: Equipos/Create
         public IActionResult Create()
         {
-            ViewData["IdMarca"] = new SelectList(_context.Marcas, "IdMarca", "IdMarca");
+            ViewData["IdMarca"] = new SelectList(_context.Marcas, "IdMarca", "NombreMarca");
             return View();
         }
 
@@ -64,7 +64,7 @@ namespace prestamoHerramientas.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdMarca"] = new SelectList(_context.Marcas, "IdMarca", "IdMarca", equipo.IdMarca);
+            ViewData["IdMarca"] = new SelectList(_context.Marcas, "IdMarca", "NombreMarca", equipo.IdMarca);
             return View(equipo);
         }
 
@@ -81,7 +81,7 @@ namespace prestamoHerramientas.Controllers
             {
                 return NotFound();
             }
-            ViewData["IdMarca"] = new SelectList(_context.Marcas, "IdMarca", "IdMarca", equipo.IdMarca);
+            ViewData["IdMarca"] = new SelectList(_context.Marcas, "IdMarca", "NombreMarca", equipo.IdMarca);
             return View(equipo);
         }
 
@@ -117,7 +117,7 @@ namespace prestamoHerramientas.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdMarca"] = new SelectList(_context.Marcas, "IdMarca", "IdMarca", equipo.IdMarca);
+            ViewData["IdMarca"] = new SelectList(_context.Marcas, "IdMarca", "NombreMarca", equipo.IdMarca);
             return View(equipo);
         }
 

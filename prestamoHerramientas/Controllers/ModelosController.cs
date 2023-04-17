@@ -21,7 +21,7 @@ namespace prestamoHerramientas.Controllers
         // GET: Modelos
         public async Task<IActionResult> Index()
         {
-            var prestamosContext = _context.Modelos.Include(m => m.IdMarcaNavigation);
+            var prestamosContext = _context.TipoHerramientas.Include(m => m.TipoHerramienta1);
             return View(await prestamosContext.ToListAsync());
         }
 

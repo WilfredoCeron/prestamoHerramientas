@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ClosedXML.Excel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -27,21 +28,67 @@ namespace prestamoHerramientas.Controllers
 
             if (!String.IsNullOrEmpty(buscar))
             {
-                
+
                 var marca = _context.Marcas.Where(m => m.NombreMarca.Equals(buscar)).FirstOrDefault();
-                prestamosContext = prestamosContext.Where(x => x.IdMarca==marca.IdMarca);
-                if( marca== null)
+                prestamosContext = prestamosContext.Where(x => x.IdMarca == marca.IdMarca);
+                if (marca == null)
                 {
                     var modelo = _context.Modelos.Where(m => m.Serie.Equals(buscar)).FirstOrDefault();
                     prestamosContext = prestamosContext.Where(x => x.IdModelo == modelo.IdModelo);
-                    if(modelo == null)
-                    {
-                        prestamosContext = _context.Prestamos.Include(p => p.IdMarcaNavigation).Include(p => p.IdModeloNavigation);
-                    }
-                }  
+                    //if (modelo == null)
+                    //{
+                    //    prestamosContext = _context.Prestamos.Include(p => p.IdMarcaNavigation).Include(p => p.IdModeloNavigation);
+                    //}
+                }
             }
-            
+
             return View(await prestamosContext.ToListAsync());
+        }
+
+
+        public IActionResult crearExcel()
+        {
+            var prestamos = _context.Prestamos;
+            if (prestamos != null)
+            {
+                using (var workbook = new XLWorkbook())
+                {
+                    var worksheet = workbook.Worksheets.Add("Prestamos");
+                    var currentRow = 1;
+
+                    worksheet.Cell(currentRow, 1).Value = "IdPrestamo";
+                    worksheet.Cell(currentRow, 2).Value = "PreatadoA";
+                    worksheet.Cell(currentRow, 3).Value = "IdMarca";
+                    worksheet.Cell(currentRow, 4).Value = "IdModelo";
+                    worksheet.Cell(currentRow, 5).Value = "FechaIncio";
+                    worksheet.Cell(currentRow, 6).Value = "FechaFin";
+                    worksheet.Cell(currentRow, 7).Value = "Estado";
+
+                    foreach (var item in prestamos)
+                    {
+                        currentRow++;
+                        worksheet.Cell(currentRow, 1).Value = item.IdPrestamo;
+                        worksheet.Cell(currentRow, 2).Value = item.PreatadoA;
+                        worksheet.Cell(currentRow, 3).Value = item.IdMarca;
+                        worksheet.Cell(currentRow, 4).Value = item.IdModelo;
+                        worksheet.Cell(currentRow, 5).Value = item.FechaIncio;
+                        worksheet.Cell(currentRow, 6).Value = item.FechaFin;
+                        worksheet.Cell(currentRow, 7).Value = item.Estado;
+                    }
+
+                    using (var strem = new MemoryStream())
+                    {
+                        workbook.SaveAs(strem);
+                        var content = strem.ToArray();
+                        return File(
+                                content,
+                                "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                                "Prestamos.xlsx"
+                                );
+                    }
+                }
+            }
+                return RedirectToAction(nameof(Index));
         }
 
         // GET: Prestamos/Details/5

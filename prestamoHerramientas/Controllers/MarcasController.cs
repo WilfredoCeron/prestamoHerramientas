@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ClosedXML.Excel;
+using DocumentFormat.OpenXml.Spreadsheet;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -29,8 +31,49 @@ namespace prestamoHerramientas.Controllers
             {
                 prestamosContext = prestamosContext.Where(x => x.NombreMarca!.Contains(buscar));
             }
-
             return View(await prestamosContext.ToListAsync());
+        }
+
+
+        public IActionResult crearExcel()
+        {
+            var Marcas = _context.Marcas;
+            if (Marcas != null)
+            {
+                using (var workbook = new XLWorkbook())
+                {
+                    var worksheet = workbook.Worksheets.Add("Marcas");
+                    var currentRow = 1;
+
+                    worksheet.Cell(currentRow, 1).Value = "idMarca";
+                    worksheet.Cell(currentRow, 2).Value = "nombreMarca";
+                    worksheet.Cell(currentRow, 3).Value = "descripcion";
+                    worksheet.Cell(currentRow, 4).Value = "tipoHerramienta";
+                    worksheet.Cell(currentRow, 5).Value = "excatitud";
+
+                    foreach (var item in Marcas)
+                    {
+                        currentRow++;
+                        worksheet.Cell(currentRow, 1).Value = item.IdMarca;
+                        worksheet.Cell(currentRow, 2).Value = item.NombreMarca;
+                        worksheet.Cell(currentRow, 3).Value = item.Descripcion;
+                        worksheet.Cell(currentRow, 4).Value = item.IdTipoHerramienta;
+                        worksheet.Cell(currentRow, 5).Value = item.Exactitud;
+                    }
+
+                    using (var strem = new MemoryStream())
+                    {
+                        workbook.SaveAs(strem);
+                        var content = strem.ToArray();
+                        return File(
+                                content,
+                                "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                                "Marcas.xlsx"
+                                );
+                    }
+                }
+            }
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Marcas/Details/5

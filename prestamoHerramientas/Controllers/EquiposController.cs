@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ClosedXML.Excel;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -30,6 +31,48 @@ namespace prestamoHerramientas.Controllers
                 prestamosContext = prestamosContext.Where(x => x.NombreEquipo!.Contains(buscar));
             }
             return View(await prestamosContext.ToListAsync());
+        }
+
+
+        public IActionResult crearExcel()
+        {
+            var Equipos = _context.Equipos;
+            if (Equipos != null)
+            {
+                using (var workbook = new XLWorkbook())
+                {
+                    var worksheet = workbook.Worksheets.Add("Equipos");
+                    var currentRow = 1;
+
+                    worksheet.Cell(currentRow, 1).Value = "IdEquipo";
+                    worksheet.Cell(currentRow, 2).Value = "NombreEquipo";
+                    worksheet.Cell(currentRow, 3).Value = "IdMarca";
+                    worksheet.Cell(currentRow, 4).Value = "NumeroSerie";
+                    worksheet.Cell(currentRow, 5).Value = "Descripcion";
+
+                    foreach (var item in Equipos)
+                    {
+                        currentRow++;
+                        worksheet.Cell(currentRow, 1).Value = item.IdEquipo;
+                        worksheet.Cell(currentRow, 2).Value = item.NombreEquipo;
+                        worksheet.Cell(currentRow, 3).Value = item.IdMarca;
+                        worksheet.Cell(currentRow, 4).Value = item.NumeroSerie;
+                        worksheet.Cell(currentRow, 5).Value = item.Descripcion;
+                    }
+
+                    using (var strem = new MemoryStream())
+                    {
+                        workbook.SaveAs(strem);
+                        var content = strem.ToArray();
+                        return File(
+                                content,
+                                "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                                "Equipos.xlsx"
+                                );
+                    }
+                }
+            }
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Equipos/Details/5
@@ -161,14 +204,14 @@ namespace prestamoHerramientas.Controllers
             {
                 _context.Equipos.Remove(equipo);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool EquipoExists(int id)
         {
-          return (_context.Equipos?.Any(e => e.IdEquipo == id)).GetValueOrDefault();
+            return (_context.Equipos?.Any(e => e.IdEquipo == id)).GetValueOrDefault();
         }
     }
 }
